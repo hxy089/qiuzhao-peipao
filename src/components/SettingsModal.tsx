@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { Metrics, Settings } from '../types'
 import { storage } from '../storage'
 import { KB_VERSION } from '../prompts'
@@ -12,6 +12,11 @@ interface Props {
 
 export default function SettingsModal({ settings, setSettings, metrics, onClose }: Props) {
   const [draft, setDraft] = useState<Settings>(settings)
+
+  // 改动即存：任何字段变化立即同步回 App 并持久化到 localStorage，不依赖「保存」按钮
+  useEffect(() => {
+    setSettings({ ...draft, kbVersion: KB_VERSION })
+  }, [draft, setSettings])
 
   function exportAll() {
     const blob = new Blob([JSON.stringify(storage.exportAll(), null, 2)], { type: 'application/json' })
@@ -29,15 +34,13 @@ export default function SettingsModal({ settings, setSettings, metrics, onClose 
     window.location.reload()
   }
 
-  function save() {
-    setSettings({ ...draft, kbVersion: KB_VERSION })
-    onClose()
-  }
-
   return (
     <div className="modal-mask" onClick={onClose}>
       <div className="modal" onClick={e => e.stopPropagation()}>
         <h2>设置</h2>
+        <p className="hint" style={{ marginBottom: 10 }}>
+          ✅ 所有改动自动保存到本浏览器，下次打开无需重新输入；点击弹窗外任意处即可关闭。
+        </p>
         <label className="check">
           <input
             type="checkbox"
@@ -111,8 +114,8 @@ export default function SettingsModal({ settings, setSettings, metrics, onClose 
           </button>
         </div>
         <div className="row end">
-          <button className="primary" onClick={save}>
-            保存
+          <button className="primary" onClick={onClose}>
+            完成
           </button>
         </div>
       </div>
