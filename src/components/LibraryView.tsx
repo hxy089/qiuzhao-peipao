@@ -175,6 +175,14 @@ export default function LibraryView({
       setError('请先上传 PDF 或粘贴简历文本')
       return
     }
+    if (settings.demoMode) {
+      const goDemo = window.confirm(
+        '当前为演示模式：AI 不会分析你上传的简历，将返回内置示例数据（虚构人物「张小雨」）。\n\n' +
+          '· 点「确定」= 继续体验示例流程\n' +
+          '· 点「取消」= 先去右上角「设置」关闭演示模式并填写 API Key，再回来分析你的真实简历',
+      )
+      if (!goDemo) return
+    }
     if (hasLibrary && !window.confirm('经历库已存在，继续将覆盖现有经历库，确认？')) return
     setError('')
     setBusy('extract')
@@ -257,7 +265,10 @@ export default function LibraryView({
               之后每次投递，只需粘贴 JD，AI 自动完成经历取舍与定制改写。
             </p>
             {settings.demoMode && (
-              <p className="hint">当前为演示模式：构建会返回示例数据。正式使用请在「设置」中关闭演示模式并填入 API Key。</p>
+              <p className="hint">
+                ⚠️ 当前为演示模式：构建不会分析你的简历，会返回内置示例数据（虚构人物「张小雨」）。
+                要分析真实简历，请先在「⚙ 设置」中关闭演示模式并填入 API Key。
+              </p>
             )}
             <div className="upload-row">
               <input
