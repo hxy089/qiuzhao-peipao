@@ -3,6 +3,8 @@
 > 上传历史简历构建结构化经历库，针对每个 JD 完成经历取舍与定制改写的秋招投递工作台。
 > 数据仅存用户浏览器本地，零后端、零运维。
 
+**线上地址**：https://hxy089.github.io/qiuzhao-peipao/ ｜ **代码仓库**：https://github.com/hxy089/qiuzhao-peipao
+
 ## 问题与洞察
 
 **问题**：PM 求职者每投递一个岗位要花 20-30 分钟手动改简历；多段实习/项目/校园经历的取舍依赖感觉；市面 AI 简历工具（含裸大模型对话）本质是「文本改写器」，不理解简历的本质是**经历与岗位的匹配决策**。
@@ -39,12 +41,11 @@ npm run preview    # 预览构建产物
 
 ## 部署到 GitHub Pages
 
-纯静态站，零服务器，免费部署：
+纯静态站，零服务器，免费部署（当前线上地址见页首）：
 
-1. 推送本仓库到 GitHub（公开仓库）
-2. 第一次部署：`npm run deploy`（构建 dist 并推送到 gh-pages 分支）
-3. 在仓库 Settings → Pages 中选择 `gh-pages` 分支（首次需手动开启一次）
-4. 线上地址：`https://你的用户名.github.io/qiuzhao-peipao/`，放到简历上，面试官点开即是演示模式
+1. 首次部署：`npm run deploy`（构建 dist 并推送到 gh-pages 分支）
+2. 仓库 Settings → Pages 选择 `gh-pages` 分支（首次需手动开启一次，本项目已完成）
+3. 后续更新：改完代码后 `npm run deploy` 即可，1-2 分钟后生效
 
 > `vite.config.ts` 已设置 `base: './'`（相对路径），保证子路径部署时资源可正常加载；该配置同样兼容 Vercel/Netlify 等其它静态托管。
 
