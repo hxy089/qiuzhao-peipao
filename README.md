@@ -37,13 +37,16 @@ npm run preview    # 预览构建产物
 - **体验**：默认开启演示模式，无需任何配置，点「构建经历库」→「新建投递」即可走完全流程
 - **正式使用**：设置 → 关闭演示模式 → 填入 OpenAI 兼容的 Base URL + API Key + 模型名（支持 DeepSeek/Qwen 等）
 
-## 部署到 Vercel
+## 部署到 GitHub Pages
 
-静态站，零服务器：
+纯静态站，零服务器，免费部署：
 
-1. 推送本仓库到 GitHub
-2. Vercel → Import Project → 选仓库 → Framework 选 **Vite** → Deploy
-3. 把部署链接放到简历上；面试官点开即是演示模式
+1. 推送本仓库到 GitHub（公开仓库）
+2. 第一次部署：`npm run deploy`（构建 dist 并推送到 gh-pages 分支）
+3. 在仓库 Settings → Pages 中选择 `gh-pages` 分支（首次需手动开启一次）
+4. 线上地址：`https://你的用户名.github.io/qiuzhao-peipao/`，放到简历上，面试官点开即是演示模式
+
+> `vite.config.ts` 已设置 `base: './'`（相对路径），保证子路径部署时资源可正常加载；该配置同样兼容 Vercel/Netlify 等其它静态托管。
 
 ## 知识库喂养工作流
 
